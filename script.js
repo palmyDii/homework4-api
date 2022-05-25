@@ -40,6 +40,9 @@ function addDataForm(index, student) {  //student table
         showAddDataPage()
         fillData(student)
         e.stopPropagation();
+
+        document.getElementById('addButton').setAttribute('hidden', 'hidden')
+        document.getElementById('editButton').removeAttribute('hidden')
     })
     cell.appendChild(edit)
     row.appendChild(cell)
@@ -127,6 +130,7 @@ function addStudentToDB(student) {
     }).then(data => {
         console.log('success', data)
         showAllStudents()
+        addStudentData(data)
     })
 }
 //delete function
@@ -148,7 +152,6 @@ function deleteStudent(id) {
 }
 //edit (put)
 function editStudent(student) {
-    student.id = 
     fetch('https://dv-student-backend-2019.appspot.com/students', {
         method: 'PUT',
         headers: {
@@ -160,12 +163,14 @@ function editStudent(student) {
     }).then(data => {
         console.log('edit success', data)
         showAllStudents()
+        addStudentData(data)
     })
 }
 
 //click to post, edit
 function onAddStudentClick(funcCallback) { 
     let student = {}
+    student.id = document.getElementById('idStudent').value
     student.name = document.getElementById('nameInput').value
     student.surname = document.getElementById('surnameInput').value
     student.studentId = document.getElementById('studentIdInput').value
@@ -175,13 +180,14 @@ function onAddStudentClick(funcCallback) {
     funcCallback(student)
 
     showEachStuPage()
-    addStudentData(student)
+    //addStudentData(student)
 }
 document.getElementById('addButton').addEventListener('click', ()=> onAddStudentClick(addStudentToDB))
 document.getElementById('editButton').addEventListener('click', ()=> onAddStudentClick(editStudent))
 
 //edit details
 function fillData(student) {
+    document.getElementById('idStudent').value = student.id
     document.getElementById('nameInput').value = student.name
     document.getElementById('surnameInput').value = student.surname
     document.getElementById('studentIdInput').value = student.studentId
@@ -189,6 +195,7 @@ function fillData(student) {
     document.getElementById('imageLinkInput').value = student.image
 }
 function blank() {
+    document.getElementById('idStudent').value = ''
     document.getElementById('nameInput').value = ''
     document.getElementById('surnameInput').value = ''
     document.getElementById('studentIdInput').value = ''
@@ -218,6 +225,9 @@ function showAddDataPage() {
     hideAll()
     blank()
     addUserDetail.style.display = 'block'
+
+    document.getElementById('addButton').removeAttribute('hidden')
+    document.getElementById('editButton').setAttribute('hidden', 'hidden')
 }
 
 document.getElementById('allStudentMenu').addEventListener('click', () => showAllPage())

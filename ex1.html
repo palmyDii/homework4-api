@@ -139,6 +139,7 @@
   <div id="addUserDetail">
     <div class="d-flex justify-content-center my-3" >
       <form class="row gy-2 gx-3 align-items-center">
+        <input type="hidden" name="" id="idStudent">
         <div class="form-floating">
           <input type="text" class="form-control" id="nameInput" placeholder="ชื่อ">
           <label for="nameInput">Name</label>
@@ -161,7 +162,7 @@
         </div>
         <div class="col-auto">
           <button type="button" class="btn btn-primary" id="addButton">Submit</button>
-          <button type="button" class="btn btn-warning" id="editButton">edit</button>
+          <button type="button" hidden class="btn btn-warning" id="editButton">edit</button>
         </div>
       </form>
     </div>
